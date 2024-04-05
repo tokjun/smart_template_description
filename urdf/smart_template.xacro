@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<robot name="smart_template" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find smart_template_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find smart_template_description)/urdf/smart_template.trans" />
+<xacro:include filename="$(find smart_template_description)/urdf/smart_template.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.38680574635247666 0.07224939492278672 0.00705263186588841" rpy="0 0 0"/>
+    <mass value="3.7397128421487014"/>
+    <inertia ixx="0.018036" iyy="0.00307" izz="0.018558" ixy="-0.001249" iyz="0.000641" ixz="0.000123"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://smart_template_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://smart_template_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="needle_stage_1">
+  <inertial>
+    <origin xyz="0.09037505165741416 -0.03302446827490199 -0.050842971477634516" rpy="0 0 0"/>
+    <mass value="0.0226184651779709"/>
+    <inertia ixx="0.0" iyy="7e-06" izz="7e-06" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.027162 -0.19518 -0.077496" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://smart_template_description/meshes/needle_stage_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.027162 -0.19518 -0.077496" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://smart_template_description/meshes/needle_stage_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="needle_1">
+  <inertial>
+    <origin xyz="-0.05802127121939121 0.04505650143315118 -0.2589013805330462" rpy="0 0 0"/>
+    <mass value="0.28837469311977904"/>
+    <inertia ixx="8.5e-05" iyy="0.000197" izz="0.00016" ixy="-2e-06" iyz="9e-06" ixz="5.6e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.352838 -0.12877 -0.302147" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://smart_template_description/meshes/needle_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.352838 -0.12877 -0.302147" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://smart_template_description/meshes/needle_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="horizontal_stage_1">
+  <inertial>
+    <origin xyz="-0.046755538278769174 0.022197452785751123 -0.14286976157666767" rpy="0 0 0"/>
+    <mass value="0.5303892322811224"/>
+    <inertia ixx="0.000848" iyy="0.000144" izz="0.000874" ixy="1.9e-05" iyz="6.1e-05" ixz="8e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.029796 -0.103502 -0.16183" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://smart_template_description/meshes/horizontal_stage_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.029796 -0.103502 -0.16183" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://smart_template_description/meshes/horizontal_stage_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Slider 14" type="prismatic">
+  <origin xyz="-0.056958 0.091678 -0.084334" rpy="0 0 0"/>
+  <parent link="horizontal_stage_1"/>
+  <child link="needle_stage_1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+  <limit upper="0.078" lower="0.01" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Slider 15" type="prismatic">
+  <origin xyz="0.38 -0.06641 0.224651" rpy="0 0 0"/>
+  <parent link="needle_stage_1"/>
+  <child link="needle_1"/>
+  <axis xyz="-1.0 -0.0 0.0"/>
+  <limit upper="0.24" lower="0.01" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Slider 16" type="prismatic">
+  <origin xyz="0.029796 0.103502 0.16183" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="horizontal_stage_1"/>
+  <axis xyz="0.0 0.0 -1.0"/>
+  <limit upper="-0.005" lower="-0.08" effort="100" velocity="100"/>
+</joint>
+
+</robot>

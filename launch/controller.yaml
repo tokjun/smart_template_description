@@ -1,0 +1,19 @@
+smart_template_controller:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position Controllers --------------------------------------
+  Slider 14_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: Slider 14
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  Slider 15_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: Slider 15
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  Slider 16_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: Slider 16
+    pid: {p: 100.0, i: 0.01, d: 10.0}
